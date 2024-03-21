@@ -1,0 +1,29 @@
+.decks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vh;
+    &-list{
+        display: grid;
+        grid-template-columns: repeat(3 , 1fr);
+        gap: 20px;
+        &-item{
+            background: #fff;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            height: 50px;
+            width: 200px;
+            &:hover{
+                background: #ccc;
+                cursor: pointer;
+            }
+        }   
+    }
+    &-input{
+
+    }
+}
