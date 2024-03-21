@@ -13,10 +13,6 @@ config()
 const PORT = 5000;
 app.use(cors())
 app.use(express.json());
-app.get('/', (req: Request, res: Response) => {
-    res.send('root')
-    console.log(process.env.MONGO_URL)
-})
 
 app.get('/decks', async (req: Request, res: Response) => {
     const decks = await Deck.find()
@@ -28,7 +24,17 @@ app.post('/decks', async (req: Request, res: Response) => {
     })
     const createdDeck= await newDeck.save();
     res.json(createdDeck)
-    console.log("Deck created",createdDeck)
+})
+
+app.delete("/decks/:deckId",async (req: Request, res: Response) => {
+    //get deck id from the url
+    const deckId = req.params.deckId
+    // dekete the deck from mongo
+    const deck = await Deck.findByIdAndDelete(deckId)
+    //return the deleted deck to user who made the request
+    res.json({
+        message: "Deck deleted successfully!"
+    })
 })
 
 mongoose.connect(process.env.MONGO_URL ?? "")

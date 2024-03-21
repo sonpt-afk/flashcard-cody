@@ -11,15 +11,27 @@
         &-item{
             background: #fff;
             border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
+            list-style-type: none;
             color: #000;
             height: 50px;
             width: 200px;
             &:hover{
                 background: #ccc;
                 cursor: pointer;
+            }
+            &-delBtn{
+                background: #fff;
+                color: #000;
+                float: right;
+                width: 25px;
+                height: 25px;
+                font-size: 10px;
+                &:hover{
+                    background: #000;
+                    cursor: pointer;
+                    color: #fff;
+                }
             }
         }   
     }
