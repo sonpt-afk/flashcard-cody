@@ -35,7 +35,7 @@ function App() {
     <div className="decks">
     <div className="decks-list">
       {
-        decks.map((deck)=>(
+        decks?.map((deck)=>(
           <li key={deck._id} className="decks-list-item" >
             <button  className="decks-list-item-delBtn" onClick={()=> handleDeleteDeck(deck._id)}>X</button>
             

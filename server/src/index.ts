@@ -3,6 +3,12 @@ import mongoose from 'mongoose';
 import Deck from './models/Deck';
 import {config} from 'dotenv'
 import cors from 'cors'
+import { getDeckController } from './controllers/getDeckController';
+import { getDecksController } from './controllers/getDecksController';
+import { createDeckController } from './controllers/createDeckController';
+import { deleteDeckController } from './controllers/deleteDeckController';
+import {createCardForDeckController} from './controllers/createCardForDeckController';
+import {deleteCardOnDeckController} from './controllers/deleteCardOnDeckController'
 const app = express();
 app.use(
     cors({
@@ -14,28 +20,12 @@ const PORT = 5000;
 app.use(cors())
 app.use(express.json());
 
-app.get('/decks', async (req: Request, res: Response) => {
-    const decks = await Deck.find()
-    res.json(decks)
-})
-app.post('/decks', async (req: Request, res: Response) => {
-    const newDeck = new Deck({
-        title: req.body.title
-    })
-    const createdDeck= await newDeck.save();
-    res.json(createdDeck)
-})
-
-app.delete("/decks/:deckId",async (req: Request, res: Response) => {
-    //get deck id from the url
-    const deckId = req.params.deckId
-    // dekete the deck from mongo
-    const deck = await Deck.findByIdAndDelete(deckId)
-    //return the deleted deck to user who made the request
-    res.json({
-        message: "Deck deleted successfully!"
-    })
-})
+app.get('/decks', getDecksController)
+app.post('/decks',createDeckController)
+app.delete("/decks/:deckId",deleteDeckController)
+app.post('/decks/:deckId/cards',createCardForDeckController)
+app.get('/decks/:deckId', getDeckController)
+app.delete("/decks/:deckId/cards/:index",deleteCardOnDeckController)
 
 mongoose.connect(process.env.MONGO_URL ?? "")
 .then(() => {
